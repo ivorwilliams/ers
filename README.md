@@ -22,21 +22,11 @@ thrown in to be cool.
 Watch for edits to this file as JavaScript front-end fashions change!  :-)
 
 #### Care to run it?
-Check it out:
 ```
 git clone git@github.com:ivorwilliams/ers.git
 cd ers
 npm install
-```
-Bundle it, then run it from the file system:
-```
-./node_modules/.bin/webpack
-open index.html
-```
-Or, better, using `webpack-dev-server`, because the browser will auto-refresh when there are code changes:
-```
-npm start
-open http://localhost:8080/webpack-dev-server/
+./node_modules/.bin/webpack && open index.html
 ```
 
 No, you're right: not much to see ... yet.
