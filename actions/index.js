@@ -10,8 +10,10 @@ export function fetchLocations(lat, lng) {
     dispatch(requestLocations(lat, lng))
     return fetch(`${ROOT_URL}/obs/geo/recent?fmt=json&lat=${lat}&lng=${lng}&dist=1&back=10`)
       .then(response => response.json())
-      .then(json => json.map(x => x.locID))
-      .then(locations => dispatch(receiveLocations(lat, lng, locations)))
+      .then(observations => {
+        let locIDs = observations.map(x => x.locID)
+        dispatch(receiveLocations(lat, lng, locIDs))
+      })
   }
 }
 
