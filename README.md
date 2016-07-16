@@ -20,3 +20,13 @@ The current target is [React](https://facebook.github.io/react/), with a
 little [Redux](http://redux.js.org) and [Webpack](https://webpack.github.io)
 thrown in to be cool.
 Watch for edits to this file as JavaScript front-end fashions change!  :-)
+
+#### Care to run it?
+```
+git clone git@github.com:ivorwilliams/ers.git
+cd ers
+npm install
+./node_modules/.bin/webpack && open index.html
+```
+
+No, you're right: not much to see ... yet.
