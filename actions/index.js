@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import 'lodash'
 
 export const REQUEST_LOCATIONS = 'REQUEST_LOCATIONS'
 export const RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS'
@@ -11,7 +12,7 @@ export function fetchLocations(lat, lng) {
     return fetch(`${ROOT_URL}/obs/geo/recent?fmt=json&lat=${lat}&lng=${lng}&dist=1&back=10`)
       .then(response => response.json())
       .then(observations => {
-        let locIDs = observations.map(x => x.locID)
+        let locIDs = _.uniq(observations.map(x => x.locID))
         dispatch(receiveLocations(lat, lng, locIDs))
       })
   }

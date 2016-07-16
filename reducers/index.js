@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import 'lodash'
 
 import {
   REQUEST_LOCATIONS, RECEIVE_LOCATIONS
@@ -13,7 +14,7 @@ function locationsReducer(state = { isFetching: false, locations: [] }, action) 
     case RECEIVE_LOCATIONS:
     return Object.assign({}, state, {
       isFetching: false,
-      locations: action.locations
+      locations: _.uniq(state.locations.concat(action.locations))
     })
     default:
       return state
