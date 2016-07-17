@@ -1,18 +1,14 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Controls from './controls.js'
-import Species from './species.js'
-import Locations from './locations.js'
+import uniq from 'lodash/uniq'
 
-class App extends React.Component {
+class Controls extends React.Component {
   static propTypes = {
   }
   render() {
     return (
-      <div className="app">
-        <Controls />
-        <Species />
-        <Locations />
+      <div className="controls">
+        <h2>No controls yet</h2>
       </div>
     )
   }
@@ -31,4 +27,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(Controls)
