@@ -11,7 +11,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h2>Just getting started...</h2>
+        <h2>{this.props.birdNames.length} bird species were seen</h2>
         <ul>
           {this.props.birdNames.map(birdName =>
             <li key={birdName}>{birdName}</li>
