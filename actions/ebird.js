@@ -2,9 +2,7 @@ import 'whatwg-fetch'
 import uniq from 'lodash/uniq'
 import chunk from 'lodash/chunk'
 
-export const FETCH_STARTED = 'FETCH_STARTED'
-export const FETCH_SUCCEEDED = 'FETCH_SUCCEEDED'
-export const FETCH_FAILED = 'FETCH_FAILED'
+import { fetchStarted, fetchSucceeded, fetchFailed } from './fetch.js'
 
 export const RECEIVE_OBSERVATIONS = 'RECEIVE_OBSERVATIONS'
 
@@ -28,19 +26,6 @@ export function fetchLocations(lat, lng) {
       })
       .catch(ex => dispatch(fetchFailed(ex)))
   }
-}
-
-function fetchStarted() {
-  return { type: FETCH_STARTED }
-}
-
-function fetchSucceeded() {
-  return { type: FETCH_SUCCEEDED }
-}
-
-function fetchFailed(exception) {
-  console.error(`fetchFailed: ${exception}`)
-  return { type: FETCH_FAILED, exception: exception }
 }
 
 function fetchObservations(locIDs, notable) {

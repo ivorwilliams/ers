@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux'
 import uniq from 'lodash/uniq'
 
-import {
-  FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED,
-  RECEIVE_OBSERVATIONS
-} from '../actions'
+import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
+import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
 
 function observations(state = [], action) {
   switch (action.type) {
