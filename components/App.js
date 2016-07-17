@@ -23,7 +23,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    observations: state.observationsReducer.observations
+    observations: state.observations
   }
 }
 

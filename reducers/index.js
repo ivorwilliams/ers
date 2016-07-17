@@ -6,25 +6,30 @@ import {
   REQUEST_OBSERVATIONS, RECEIVE_OBSERVATIONS
 } from '../actions'
 
-function observationsReducer(state = { isFetching: false, observations: [] }, action) {
+function observations(state = [], action) {
+  switch (action.type) {
+    case RECEIVE_OBSERVATIONS:
+      // TODO: Misnomer alert!  For now, just storing comName, not entire observation
+      return uniq(state.concat(action.observations.map(x => x.comName)))
+    default:
+      return state
+  }
+}
+
+function fetching(state = false, action) {
   switch (action.type) {
     case REQUEST_OBSERVATIONS:
-      return Object.assign({}, state, {
-        isFetching: true
-      })
+      return true
     case RECEIVE_OBSERVATIONS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        // TODO: Misnomer alert!  For now, just storing comName, not entire observation
-        observations: uniq(state.observations.concat(action.observations.map(x => x.comName)))
-      })
+      return false
     default:
       return state
   }
 }
 
 const rootReducer = combineReducers({
-  observationsReducer
+  observations,
+  fetching
 })
 
 export default rootReducer
