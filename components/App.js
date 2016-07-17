@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import uniq from 'lodash/uniq'
 
 class App extends React.Component {
   static propTypes = {
-    observations: React.PropTypes.arrayOf(
+    birdNames: React.PropTypes.arrayOf(
       React.PropTypes.string.isRequired
     ).isRequired
   }
@@ -12,8 +13,8 @@ class App extends React.Component {
       <div>
         <h2>Just getting started...</h2>
         <ul>
-          {this.props.observations.map(observation =>
-            <li key={observation}>{observation}</li>
+          {this.props.birdNames.map(birdName =>
+            <li key={birdName}>{birdName}</li>
           )}
         </ul>
       </div>
@@ -23,7 +24,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    observations: state.observations
+    birdNames: uniq(state.observations.map(x => x.comName))
   }
 }
 

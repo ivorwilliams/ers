@@ -9,8 +9,7 @@ import {
 function observations(state = [], action) {
   switch (action.type) {
     case RECEIVE_OBSERVATIONS:
-      // TODO: Misnomer alert!  For now, just storing comName, not entire observation
-      return uniq(state.concat(action.observations.map(x => x.comName)))
+      return uniq(state.concat(action.observations))
     default:
       return state
   }
