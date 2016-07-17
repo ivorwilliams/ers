@@ -33,12 +33,13 @@ Bundle it, then run it from the file system:
 ./node_modules/.bin/webpack
 open index.html
 ```
-Or, better, using `webpack-dev-server`, because the browser will auto-refresh when there are code changes:
+Or, better, using `webpack-dev-server`, because the browser will auto-refresh
+when there are code changes:
 ```
 npm start
 open http://localhost:8080/
 ```
 
-As a temporary PoC, the App component displays a list of locations returned by
-the eBird service.  There's also plenty of information logged to the  JavaScript
-console.
+As a temporary PoC, the App component displays the common names of all birds
+returned by the eBird service for the given location and date range.  There's
+also plenty of information logged to the  JavaScript console.
