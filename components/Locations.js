@@ -11,7 +11,7 @@ class Locations extends React.Component {
   render() {
     return (
       <div className="locations">
-        <h2>{this.props.locIDs.length} locations</h2>
+        <h4>{this.props.locIDs.length} locations</h4>
         <ul>
           {this.props.locIDs.map(locID =>
             <li key={locID}>{locID}</li>

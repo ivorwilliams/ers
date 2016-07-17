@@ -8,7 +8,7 @@ class Controls extends React.Component {
   render() {
     return (
       <div className="controls">
-        <h2>No controls yet</h2>
+        <h4>No controls yet</h4>
       </div>
     )
   }

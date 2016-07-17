@@ -1,0 +1,61 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+  margin: 0 0 0px;
+  padding: 0;
+}
+
+h1 {
+  border-bottom: 1px solid #ddd;
+  font-size: 2.5em;
+}
+
+h2 {
+  border-bottom: 1px solid #eee;
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+p, ul {
+  margin: 0px 0;
+}
+
+ul {
+  padding-left: 0px;
+  list-style: none;
+}
+
+.app > div:first-child {
+  float: left;
+  width: 25%;
+}
+
+.locations {
+  margin-left: 25%;
+}
+
+/* Garish colours for debugging */
+/*
+.app * div {
+  border: 1px solid black;
+}
+.controls {
+  background: red;
+}
+.species {
+  background: green;
+}
+.locations {
+  background: blue;
+}
+*/

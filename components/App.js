@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Controls from './controls.js'
 import Species from './species.js'
 import Locations from './locations.js'
+import '../css/base.css'
 
 class App extends React.Component {
   static propTypes = {
@@ -10,8 +11,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <Controls />
-        <Species />
+        <div>
+          <Controls />
+          <Species />
+        </div>
         <Locations />
       </div>
     )
