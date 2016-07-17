@@ -2,8 +2,8 @@ import { combineReducers } from 'redux'
 import uniq from 'lodash/uniq'
 
 import {
-  REQUEST_LOCATIONS, RECEIVE_LOCATIONS,
-  REQUEST_OBSERVATIONS, RECEIVE_OBSERVATIONS
+  FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED,
+  RECEIVE_OBSERVATIONS
 } from '../actions'
 
 function observations(state = [], action) {
@@ -15,12 +15,14 @@ function observations(state = [], action) {
   }
 }
 
-function fetching(state = false, action) {
+function fetching(state = 0, action) {
   switch (action.type) {
-    case REQUEST_OBSERVATIONS:
-      return true
-    case RECEIVE_OBSERVATIONS:
-      return false
+    case FETCH_STARTED:
+      return state + 1
+    case FETCH_SUCCEEDED:
+      return state - 1
+    case FETCH_FAILED:
+      return state - 1
     default:
       return state
   }
