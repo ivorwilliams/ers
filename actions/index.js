@@ -19,14 +19,15 @@ export function fetchLocations(lat, lng) {
       .then(response => response.json())
       .then(observations => {
         let locIDs = uniq(observations.map(x => x.locID))
-        // TODO: we don't need to store this: instead just fetch obs/notables for each loc
-        // TODO: or do we notify to indicate that fetch is done?
+        // TODO: need to take stock of the state: need locations *and* observations
+        // TODO: do we notify to indicate that fetch is done?  Disable a busy indicator?
         dispatch(receiveLocations(lat, lng))
         chunk(locIDs, 10).forEach(chunk => {
           dispatch(fetchObservations(chunk, true))
           dispatch(fetchObservations(chunk, false))
         })
       })
+      .catch(ex => console.log('error', ex))
   }
 }
 
@@ -47,7 +48,6 @@ function receiveLocations(lat, lng) {
 }
 
 function fetchObservations(locIDs, notable) {
-  console.log(`fetchObservations, notable=${notable}`)
   return dispatch => {
     dispatch(requestObservations(locIDs, notable))
     let type = notable ? 'notable' : 'obs'
@@ -59,7 +59,6 @@ function fetchObservations(locIDs, notable) {
 }
 
 function requestObservations(locIDs, notable) {
-  console.log('1')
   return {
     type: REQUEST_OBSERVATIONS,
     locIDs: locIDs,
@@ -68,7 +67,6 @@ function requestObservations(locIDs, notable) {
 }
 
 function receiveObservations(observations, notable) {
-  console.log('receive')
   return {
     type: RECEIVE_OBSERVATIONS,
     observations: observations,
