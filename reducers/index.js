@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import 'lodash'
+import uniq from 'lodash/uniq'
 
 import {
   REQUEST_LOCATIONS, RECEIVE_LOCATIONS,
@@ -7,7 +7,6 @@ import {
 } from '../actions'
 
 function observationsReducer(state = { isFetching: false, observations: [] }, action) {
-  console.log('reducer', action)
   switch (action.type) {
     case REQUEST_OBSERVATIONS:
       return Object.assign({}, state, {
@@ -17,7 +16,7 @@ function observationsReducer(state = { isFetching: false, observations: [] }, ac
       return Object.assign({}, state, {
         isFetching: false,
         // TODO: Misnomer alert!  For now, just storing comName, not entire observation
-        observations: _.uniq(state.observations.concat(action.observations.map(x => x.comName)))
+        observations: uniq(state.observations.concat(action.observations.map(x => x.comName)))
       })
     default:
       return state

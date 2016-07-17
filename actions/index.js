@@ -1,5 +1,6 @@
 import 'whatwg-fetch'
-import 'lodash'
+import uniq from 'lodash/uniq'
+import chunk from 'lodash/chunk'
 
 export const REQUEST_LOCATIONS = 'REQUEST_LOCATIONS'
 export const RECEIVE_LOCATIONS = 'RECEIVE_LOCATIONS'
@@ -17,11 +18,11 @@ export function fetchLocations(lat, lng) {
     fetch(`${ROOT_URL}/obs/geo/recent?fmt=json&lat=${lat}&lng=${lng}&dist=${DIST}&back=${BACK}`)
       .then(response => response.json())
       .then(observations => {
-        let locIDs = _.uniq(observations.map(x => x.locID))
+        let locIDs = uniq(observations.map(x => x.locID))
         // TODO: we don't need to store this: instead just fetch obs/notables for each loc
         // TODO: or do we notify to indicate that fetch is done?
         dispatch(receiveLocations(lat, lng))
-        _.chunk(locIDs, 10).forEach(chunk => {
+        chunk(locIDs, 10).forEach(chunk => {
           dispatch(fetchObservations(chunk, true))
           dispatch(fetchObservations(chunk, false))
         })
