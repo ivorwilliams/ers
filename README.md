@@ -39,4 +39,6 @@ npm start
 open http://localhost:8080/
 ```
 
-No, you're right: not much to see ... yet.  For now, look for activity in the JavaScript console.
+As a temporary PoC, the App component displays a list of locations returned by
+the eBird service.  There's also plenty of information logged to the  JavaScript
+console.
