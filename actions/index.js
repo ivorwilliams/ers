@@ -51,7 +51,7 @@ function fetchObservations(locIDs, notable) {
   return dispatch => {
     dispatch(requestObservations(locIDs, notable))
     let type = notable ? 'notable' : 'obs'
-    fetch(`${ROOT_URL}/${type}/region/recent?fmt=json&r=${locIDs.join(',')}&dist=${DIST}&back=${BACK}`)
+    fetch(`${ROOT_URL}/${type}/loc/recent?fmt=json&r=${locIDs.join(',')}&dist=${DIST}&back=${BACK}&detail=full`)
       .then(response => response.json() )
       .then(observations => dispatch(receiveObservations(observations, notable)))
       .catch(ex => console.log('error', ex))
