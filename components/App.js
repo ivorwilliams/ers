@@ -11,10 +11,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <div>
-          <Controls />
-          <Species />
-        </div>
+        <Controls />
+        <Species />
         <Locations />
       </div>
     )

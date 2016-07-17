@@ -35,12 +35,20 @@ ul {
   list-style: none;
 }
 
-.app > div:first-child {
-  float: left;
+.app {
+  height: 600px;
+}
+
+.species {
+  height: 100%;
   width: 25%;
+  float: left;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .locations {
+  height: 100%;
   margin-left: 25%;
 }
 

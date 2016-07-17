@@ -40,6 +40,8 @@ npm start
 open http://localhost:8080/
 ```
 
-As a temporary PoC, the App component displays the common names of all birds
-returned by the eBird service for the given location and date range.  There's
-also plenty of information logged to the  JavaScript console.
+Inching towards a full solution, for now the app displays:
+- on the left, a list of all birds seen
+- on the right, the IDs of all locations where birds were seen
+
+There's also plenty of information logged to the  JavaScript console.

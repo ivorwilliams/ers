@@ -11,7 +11,6 @@ class Species extends React.Component {
   render() {
     return (
       <div className="species">
-        <h4>{this.props.birdNames.length} species</h4>
         <ul>
           {this.props.birdNames.map(birdName =>
             <li key={birdName}>{birdName}</li>
