@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import uniqBy from 'lodash/fp/uniqBy'
 
 class Species extends React.Component {
+
   static propTypes = {
     species: React.PropTypes.arrayOf(
       React.PropTypes.shape({
@@ -11,6 +12,7 @@ class Species extends React.Component {
       }).isRequired
     ).isRequired
   }
+
   render() {
     return (
       <div className="species">
