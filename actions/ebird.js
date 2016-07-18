@@ -8,7 +8,7 @@ export const RECEIVE_OBSERVATIONS = 'RECEIVE_OBSERVATIONS'
 
 const ROOT_URL = 'http://ebird.org/ws1.1/data'
 // TODO: move to state?
-const DIST = 1
+const DIST = 25
 const BACK = 7
 
 export function fetchLocations(lat, lng) {
