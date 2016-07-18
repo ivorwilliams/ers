@@ -22,10 +22,12 @@ class Locations extends React.Component {
         <ul>
           {this.props.locations.map(location =>
             <li key={location.id}>
-              <a href={this.urlFor(location)}>
-                {location.name} ({location.id})</a>
-                lat={location.lat}, lng={location.lng}
-              )
+              <a href={this.urlForLocation(location)}>
+                {location.name}
+              </a>,
+              (<a href={this.urlForLatLng(location.lat, location.lng)}>
+                map
+              </a>)
             </li>
           )}
         </ul>
@@ -33,8 +35,12 @@ class Locations extends React.Component {
     )
   }
 
-  urlFor(location) {
+  urlForLocation(location) {
     return location.hotspot ? `http://ebird.org/ebird/hotspot/${location.id}` : '#'
+  }
+
+  urlForLatLng(lat, lng) {
+    return `https://maps.google.com/maps?q=${lat},${lng}`
   }
 }
 
