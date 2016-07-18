@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import uniq from 'lodash/uniq'
 
 class Controls extends React.Component {
   static propTypes = {

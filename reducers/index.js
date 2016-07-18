@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import uniq from 'lodash/uniq'
 
 import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
 import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
@@ -7,7 +6,7 @@ import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
 function observations(state = [], action) {
   switch (action.type) {
     case RECEIVE_OBSERVATIONS:
-      return uniq(state.concat(action.observations))
+      return state.concat(action.observations)
     default:
       return state
   }

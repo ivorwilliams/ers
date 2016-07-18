@@ -40,12 +40,8 @@ class Locations extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    locations: uniqBy('id')(observationsToLocations(state.observations))
+    locations: uniqBy('id')(state.observations.map(observationToLocation))
   }
-}
-
-const observationsToLocations = (observations) => {
-  return observations.map(observationToLocation)
 }
 
 const observationToLocation = (observation) => {

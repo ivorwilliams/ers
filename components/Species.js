@@ -1,19 +1,22 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/fp/uniqBy'
 
 class Species extends React.Component {
   static propTypes = {
-    birdNames: React.PropTypes.arrayOf(
-      React.PropTypes.string.isRequired
+    species: React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        sciName: React.PropTypes.string.isRequired,
+        comName: React.PropTypes.string.isRequired
+      }).isRequired
     ).isRequired
   }
   render() {
     return (
       <div className="species">
         <ul>
-          {this.props.birdNames.map(birdName =>
-            <li key={birdName}>{birdName}</li>
+          {this.props.species.map(sp =>
+            <li key={sp.sciName}>{sp.comName}</li>
           )}
         </ul>
       </div>
@@ -23,7 +26,14 @@ class Species extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    birdNames: uniq(state.observations.map(x => x.comName))
+    species: uniqBy('sciName')(state.observations.map(observationToSpecies))
+  }
+}
+
+const observationToSpecies = (observation) => {
+  return {
+    sciName: observation.sciName,
+    comName: observation.comName
   }
 }
 
