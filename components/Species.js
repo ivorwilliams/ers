@@ -27,8 +27,11 @@ class Species extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  let filteredObservations = state
+    .observations
+    .filter(x => x.comName.toLowerCase().indexOf(state.filters.text) != -1)
   return {
-    species: uniqBy('sciName')(state.observations.map(observationToSpecies))
+    species: uniqBy('sciName')(filteredObservations.map(observationToSpecies))
   }
 }
 

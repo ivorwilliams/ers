@@ -1,7 +1,18 @@
 import { combineReducers } from 'redux'
 
+import { SET_FILTER } from '../actions/controls.js'
 import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
 import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
+
+function filters(state = { text: '' }, action) {
+  switch (action.type) {
+    case SET_FILTER:
+    console.log(action.text)
+      return { ...state, text: action.text.toLowerCase() }
+    default:
+      return state
+  }
+}
 
 function observations(state = [], action) {
   switch (action.type) {
@@ -26,6 +37,7 @@ function fetching(state = 0, action) {
 }
 
 const rootReducer = combineReducers({
+  filters,
   observations,
   fetching
 })
