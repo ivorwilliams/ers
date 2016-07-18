@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import uniq from 'lodash/uniq'
-import uniqBy from 'lodash/uniqBy'
+import uniqBy from 'lodash/fp/uniqBy'
 
 class Locations extends React.Component {
 
@@ -41,7 +40,7 @@ class Locations extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    locations: uniqBy(observationsToLocations(state.observations), 'id')
+    locations: uniqBy('id')(observationsToLocations(state.observations))
   }
 }
 
