@@ -42,6 +42,8 @@ open http://localhost:8080/
 
 Inching towards a full solution, for now the app displays:
 - on the left, a list of all birds seen
-- on the right, the IDs of all locations where birds were seen
+- on the right, the locations where birds were seen
+- at the top, a filter restricts the set of matching observations, and hence
+the list of species and locations.  Try typing 'hawk'
 
 There's also plenty of information logged to the  JavaScript console.
