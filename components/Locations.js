@@ -1,16 +1,19 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps'
 import uniqBy from 'lodash/fp/uniqBy'
 
 class Locations extends React.Component {
 
   static propTypes = {
-    locations: React.PropTypes.arrayOf(
+    markers: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        id: React.PropTypes.string.isRequired,
+        key: React.PropTypes.string.isRequired,
         name: React.PropTypes.string.isRequired,
-        lat: React.PropTypes.number.isRequired,
-        lng: React.PropTypes.number.isRequired,
+        position: React.PropTypes.shape({
+          lat: React.PropTypes.number.isRequired,
+          lng: React.PropTypes.number.isRequired
+        }).isRequired,
         hotspot: React.PropTypes.bool.isRequired
       }).isRequired
     ).isRequired
@@ -18,20 +21,33 @@ class Locations extends React.Component {
 
   render() {
     return (
-      <div className="locations">
-        <ul>
-          {this.props.locations.map(location =>
-            <li key={location.id}>
-              <a href={this.urlForLocation(location)}>
-                {location.name}
-              </a>,
-              (<a href={this.urlForLatLng(location.lat, location.lng)}>
-                map
-              </a>)
-            </li>
-          )}
-        </ul>
-      </div>
+      // TODO: fix up this quick-n-dirty cut-paste from https://github.com/tomchentw/react-google-maps
+      <section style={{height: "100%"}} className="locations">
+        <GoogleMapLoader
+          containerElement={
+            <div
+              style={{
+                height: "100%",
+              }}
+            />
+          }
+          googleMapElement={
+            <GoogleMap
+              ref={(map) => console.log(map)}
+              defaultZoom={10}
+              defaultCenter={{ lat: 43.6504268, lng: -79.4595838 }}
+            >
+            {this.props.markers.map((marker, index) => {
+              return (
+                <Marker
+                  {...marker}
+                  onRightclick={() => this.props.onMarkerRightclick(index)} />
+              );
+            })}
+            </GoogleMap>
+          }
+        />
+      </section>
     )
   }
 
@@ -49,16 +65,18 @@ const mapStateToProps = (state) => {
     .observations
     .filter(x => x.comName.toLowerCase().indexOf(state.filters.text) != -1)
   return {
-    locations: uniqBy('id')(filteredObservations.map(observationToLocation))
+    markers: uniqBy('key')(filteredObservations.map(observationToLocation))
   }
 }
 
 const observationToLocation = (observation) => {
   return {
-    id: observation.locID,
+    key: observation.locID,
     name: observation.locName,
-    lat: observation.lat,
-    lng: observation.lng,
+    position: {
+      lat: observation.lat,
+      lng: observation.lng
+    },
     hotspot: !observation.locationPrivate
   }
 }
