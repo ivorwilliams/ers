@@ -43,9 +43,9 @@ function fetchObservations(locIDs, notable) {
 }
 
 function receiveObservations(observations, notable) {
+  let extra = { notable: notable }
   return {
     type: RECEIVE_OBSERVATIONS,
-    observations: observations,
-    notable: notable
+    observations: observations.map(obs => Object.assign({}, obs, extra))
   }
 }
