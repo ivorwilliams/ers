@@ -57,7 +57,7 @@ class Locations extends React.Component {
 const mapStateToProps = (state) => {
   let filteredObservations = state
     .observations
-    .filter(x => x.comName.toLowerCase().indexOf(state.filters.text) != -1)
+    .filter(x => state.filters.re.test(x.comName))
   return {
     markers: uniqBy('key')(filteredObservations.map(observationToLocation))
   }

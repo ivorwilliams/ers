@@ -4,14 +4,25 @@ import { SET_FILTER } from '../actions/controls.js'
 import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
 import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
 
-function filters(state = { text: '' }, action) {
+function filters(state = { re: new RegExp('') }, action) {
   switch (action.type) {
     case SET_FILTER:
     console.log(action.text)
-      return { ...state, text: action.text.toLowerCase() }
+      return { ...state, re: textToRegExp(action.text) }
     default:
       return state
   }
+}
+
+/*
+ * Convert the filter text into a regular expression
+ *
+ * 1. Split filter text into word part, using space or dash
+ * 2. Join the words with "anything"
+ */
+function textToRegExp(text) {
+  let reText = text.split(/[ -]/).join('.*')
+  return new RegExp(reText, 'i')
 }
 
 function observations(state = [], action) {
