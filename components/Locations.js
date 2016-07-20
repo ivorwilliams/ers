@@ -21,7 +21,8 @@ class Locations extends React.Component {
 
   render() {
     return (
-      // TODO: fix up this quick-n-dirty cut-paste from https://github.com/tomchentw/react-google-maps
+      // TODO: auto zoom and centre map
+      // TODO: infowindow showing bird info
       <section style={{height: "100%"}} className="locations">
         <GoogleMapLoader
           containerElement={
