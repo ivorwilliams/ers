@@ -9,12 +9,12 @@ class Locations extends React.Component {
     markers: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         key: React.PropTypes.string.isRequired,
-        name: React.PropTypes.string.isRequired,
+        title: React.PropTypes.string.isRequired,
         position: React.PropTypes.shape({
           lat: React.PropTypes.number.isRequired,
           lng: React.PropTypes.number.isRequired
         }).isRequired,
-        hotspot: React.PropTypes.bool.isRequired
+        opacity: React.PropTypes.number.isRequired
       }).isRequired
     ).isRequired
   }
@@ -65,12 +65,12 @@ const mapStateToProps = (state) => {
 const observationToLocation = (observation) => {
   return {
     key: observation.locID,
-    name: observation.locName,
+    title: observation.locName,
     position: {
       lat: observation.lat,
       lng: observation.lng
     },
-    hotspot: !observation.locationPrivate
+    opacity: observation.locationPrivate ? 0.5 : 1.0
   }
 }
 
