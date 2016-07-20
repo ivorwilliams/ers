@@ -13,8 +13,7 @@ class Locations extends React.Component {
         position: React.PropTypes.shape({
           lat: React.PropTypes.number.isRequired,
           lng: React.PropTypes.number.isRequired
-        }).isRequired,
-        opacity: React.PropTypes.number.isRequired
+        }).isRequired
       }).isRequired
     ).isRequired
   }
@@ -82,8 +81,7 @@ const observationToLocation = (observation) => {
     position: {
       lat: observation.lat,
       lng: observation.lng
-    },
-    opacity: observation.locationPrivate ? 0.5 : 1.0
+    }
   }
 }
 
