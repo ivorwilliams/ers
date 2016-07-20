@@ -7,7 +7,6 @@ import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
 function filters(state = { re: new RegExp('') }, action) {
   switch (action.type) {
     case SET_FILTER:
-    console.log(action.text)
       return { ...state, re: textToRegExp(action.text) }
     default:
       return state
