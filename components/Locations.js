@@ -34,9 +34,7 @@ class Locations extends React.Component {
           }
           googleMapElement={
             <GoogleMap
-              ref={(map) => console.log(map)}
-              defaultZoom={10}
-              defaultCenter={{ lat: 43.6504268, lng: -79.4595838 }}
+              ref={ (map) => this.zoomMapToMarkers(map) }
             >
             {this.props.markers.map((marker, index) => {
               return (
@@ -50,6 +48,20 @@ class Locations extends React.Component {
         />
       </section>
     )
+  }
+
+  // TODO: Ugh.  This is called as the user types and filters the selection.
+  // TODO: Perhaps listen for fetches to finish, zoom once, then no more
+  zoomMapToMarkers(map) {
+    if (map) {
+      console.log(`zooming map to ${this.props.markers.length} markers`)
+      let mapBounds = this.props.markers.reduce(
+        // TODO: I should be able to simplify the extend() param
+        (bounds, m) => bounds.extend(new google.maps.LatLng(m.position.lat, m.position.lng)),
+        new google.maps.LatLngBounds()
+      )
+      map.fitBounds(mapBounds)
+    }
   }
 
 }
