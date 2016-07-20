@@ -51,13 +51,6 @@ class Locations extends React.Component {
     )
   }
 
-  urlForLocation(location) {
-    return location.hotspot ? `http://ebird.org/ebird/hotspot/${location.id}` : '#'
-  }
-
-  urlForLatLng(lat, lng) {
-    return `https://maps.google.com/maps?q=${lat},${lng}`
-  }
 }
 
 const mapStateToProps = (state) => {
