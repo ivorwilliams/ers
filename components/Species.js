@@ -30,6 +30,7 @@ const mapStateToProps = (state) => {
   let filteredObservations = state
     .observations
     .filter(x => state.filters.re.test(x.comName))
+    .filter(x => x.notable || !state.filters.notableOnly)
   return {
     species: uniqBy('sciName')(filteredObservations.map(observationToSpecies))
   }

@@ -69,6 +69,7 @@ const mapStateToProps = (state) => {
   let filteredObservations = state
     .observations
     .filter(x => state.filters.re.test(x.comName))
+    .filter(x => x.notable || !state.filters.notableOnly)
   return {
     markers: uniqBy('key')(filteredObservations.map(observationToLocation))
   }

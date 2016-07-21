@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux'
 
-import { SET_FILTER } from '../actions/controls.js'
+import { SET_NAME_FILTER, SET_NOTABLE_ONLY } from '../actions/controls.js'
 import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
 import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
 
-function filters(state = { re: new RegExp('') }, action) {
+function filters(state = { re: new RegExp(''), notableOnly: true }, action) {
   switch (action.type) {
-    case SET_FILTER:
+    case SET_NAME_FILTER:
       return { ...state, re: textToRegExp(action.text) }
+    case SET_NOTABLE_ONLY:
+      return { ...state, notableOnly: action.value }
     default:
       return state
   }
