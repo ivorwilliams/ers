@@ -6,7 +6,7 @@ import configureStore from './store'
 import { fetchLocations } from './actions/ebird.js'
 
 const store = configureStore()
-store.dispatch(fetchLocations(43.6504268, -79.4595838))
+store.dispatch(fetchLocations(43.653525, -79.383905))
 
 ReactDOM.render(
   <Provider store={store}>
