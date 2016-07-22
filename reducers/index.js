@@ -1,8 +1,31 @@
 import { combineReducers } from 'redux'
 
+import { SET_LOCATION, SET_REGION, SET_DISTANCE, SET_BACK } from '../actions/settings.js'
 import { SET_NAME_FILTER, SET_NOTABLE_ONLY } from '../actions/controls.js'
 import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
 import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
+
+function settings(state = {}, action) {
+  switch (action.type) {
+    case SET_LOCATION:
+      return { ...state, lat: action.lat, lng: action.lng, byLocation: true }
+    case SET_REGION:
+      return { ...state, region: action.region, by: action.by, byLocation: false }
+    case SET_DISTANCE:
+      return { ...state, dist: action.dist }
+    case SET_BACK:
+      return { ...state, back: action.back }
+    default:
+      return state
+  }
+}
+
+function selections(state = {}, action) {
+  switch (action.type) {
+    default:
+      return state
+  }
+}
 
 function filters(state = { re: new RegExp(''), notableOnly: true }, action) {
   switch (action.type) {
@@ -49,6 +72,8 @@ function fetching(state = 0, action) {
 }
 
 const rootReducer = combineReducers({
+  settings,
+  selections,
   filters,
   observations,
   fetching
