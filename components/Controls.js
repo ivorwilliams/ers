@@ -9,8 +9,8 @@ class Controls extends React.Component {
   static propTypes = {
     notableOnly: React.PropTypes.bool.isRequired,
     byRegion: React.PropTypes.bool.isRequired,
-    dist: React.PropTypes.string.isRequired,
-    back: React.PropTypes.string.isRequired,
+    dist: React.PropTypes.number.isRequired,
+    back: React.PropTypes.number.isRequired,
     onNameFilterChange: React.PropTypes.func.isRequired,
     onNotableOnlyChange: React.PropTypes.func.isRequired,
     onDistChange: React.PropTypes.func.isRequired,
@@ -32,19 +32,26 @@ class Controls extends React.Component {
         />
         {' '}
         Notable only
-        <input
-          type="text"
-          placeholder="Distance (km)..."
+
+        Distance:
+        <select
           value={this.props.dist}
           onChange={this.props.onDistChange}
           disabled={this.props.byRegion}
-        />
-        <input
-          type="text"
-          placeholder="Days back..."
+        >
+          {[,...Array(50)].map((x, i) =>
+            <option key={i}>{i}</option>
+          )}
+        </select>
+        Days back:
+        <select
           value={this.props.back}
           onChange={this.props.onBackChange}
-        />
+        >
+          {[,...Array(30)].map((x, i) =>
+            <option key={i}>{i}</option>
+          )}
+        </select>
       </div>
     )
   }
@@ -54,8 +61,8 @@ const mapStateToProps = (state) => {
   return {
     notableOnly: state.filters.notableOnly,
     byRegion: state.settings.byRegion,
-    dist: state.settings.dist.toString(),
-    back: state.settings.back.toString()
+    dist: state.settings.dist,
+    back: state.settings.back
   }
 }
 
@@ -68,10 +75,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setNotableOnly(e.target.checked))
     },
     onDistChange: (e) => {
-      dispatch(setDistanceAndFetch(e.target.value))
+      dispatch(setDistanceAndFetch(parseInt(e.target.value)))
     },
     onBackChange: (e) => {
-      dispatch(setBackAndFetch(e.target.value))
+      dispatch(setBackAndFetch(parseInt(e.target.value)))
     }
   }
 }
