@@ -58,8 +58,8 @@ export function setSettingsFromScriptTag() {
   return (dispatch, getState) => {
     if (isDefined('lat') && isDefined('lng')) {
       dispatch(setLocation(asFloat('lat'), asFloat('lng')))
-    } else if (isDefined('region')) {
-      dispatch(setRegion(asString('region')))
+    } else if (isDefined('r')) {
+      dispatch(setRegion(asString('r')))
     }
 
     if (isDefined('dist')) {
