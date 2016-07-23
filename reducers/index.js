@@ -8,9 +8,9 @@ import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
 function settings(state = {}, action) {
   switch (action.type) {
     case SET_LOCATION:
-      return { ...state, lat: action.lat, lng: action.lng, byLocation: true }
+      return { ...state, lat: action.lat, lng: action.lng, byRegion: false }
     case SET_REGION:
-      return { ...state, region: action.region, by: action.by, byLocation: false }
+      return { ...state, r: action.region, byRegion: true }
     case SET_DISTANCE:
       return { ...state, dist: action.dist }
     case SET_BACK:
