@@ -36,7 +36,7 @@ export function setBack(back) {
 }
 
 /*
- * TODO: not sure about this.  For one thing, as it stand I don't think it
+ * TODO: not sure about this.  For one thing, as it stands I don't think it
  * will be possible to have more than one instance on a page.
  */
 export function setSettingsFromScriptTag() {

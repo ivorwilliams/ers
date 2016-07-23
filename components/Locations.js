@@ -20,7 +20,6 @@ class Locations extends React.Component {
 
   render() {
     return (
-      // TODO: auto zoom and centre map
       // TODO: infowindow showing bird info
       <section style={{height: "100%"}} className="locations">
         <GoogleMapLoader
