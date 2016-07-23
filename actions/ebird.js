@@ -6,6 +6,7 @@ import reduce from 'lodash/reduce'
 
 import { fetchStarted, fetchSucceeded, fetchFailed } from './fetch.js'
 
+export const CLEAR_OBSERVATIONS = 'CLEAR_OBSERVATIONS'
 export const RECEIVE_OBSERVATIONS = 'RECEIVE_OBSERVATIONS'
 
 /*
@@ -16,9 +17,16 @@ const DEFAULT_PARAMS = {
   fmt: 'json'
 }
 
+export function clearObservations() {
+  return {
+    type: CLEAR_OBSERVATIONS
+  }
+}
+
 export function fetchLocations(settings) {
   return dispatch => {
     dispatch(fetchStarted())
+    dispatch(clearObservations())
     fetch(locationsUrlFor(settings))
       .then(response => response.json())
       .then(observations => {
@@ -58,8 +66,8 @@ function locationsUrlFor(settings) {
   let path = settings.byRegion
     ? '/obs/region/recent' : '/obs/geo/recent'
   let locationParams = settings.byRegion
-    ? { r: settings.r } : { lat: settings.lat, lng: settings.lng }
-  return urlFor(path, locationParams)
+    ? { r: settings.r } : { lat: settings.lat, lng: settings.lng, dist: settings.dist }
+  return urlFor(path, { ...locationParams, back: settings.back })
 }
 
 function observationsUrlFor(settings, notable, locIDs) {
@@ -70,7 +78,9 @@ function observationsUrlFor(settings, notable, locIDs) {
 function urlFor(path, extraParams) {
   let params = { ...DEFAULT_PARAMS, ...extraParams }
   let paramString = paramsToString(params)
-  return `${ROOT_URL}${path}?${paramString}`
+  let url = `${ROOT_URL}${path}?${paramString}`
+  console.log('url', url)
+  return url
 }
 
 function paramsToString(params) {

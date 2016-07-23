@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { SET_LOCATION, SET_REGION, SET_DISTANCE, SET_BACK } from '../actions/settings.js'
 import { SET_NAME_FILTER, SET_NOTABLE_ONLY } from '../actions/controls.js'
 import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
-import { RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
+import { CLEAR_OBSERVATIONS, RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
 
 function settings(state = {}, action) {
   switch (action.type) {
@@ -51,6 +51,8 @@ function textToRegExp(text) {
 
 function observations(state = [], action) {
   switch (action.type) {
+    case CLEAR_OBSERVATIONS:
+      return state = []
     case RECEIVE_OBSERVATIONS:
       return state.concat(action.observations)
     default:
