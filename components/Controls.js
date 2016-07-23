@@ -33,16 +33,8 @@ class Controls extends React.Component {
         {' '}
         Notable only
 
-        Distance:
-        <select
-          value={this.props.dist}
-          onChange={this.props.onDistChange}
-          disabled={this.props.byRegion}
-        >
-          {[,...Array(50)].map((x, i) =>
-            <option key={i}>{i}</option>
-          )}
-        </select>
+        { this.props.byRegion ? null : this.renderDistChanged() }
+
         Days back:
         <select
           value={this.props.back}
@@ -53,6 +45,22 @@ class Controls extends React.Component {
           )}
         </select>
       </div>
+    )
+  }
+
+  renderDistChanged() {
+    return (
+      <span>
+        Distance
+        <select
+          value={this.props.dist}
+          onChange={this.props.onDistChange}
+        >
+          {[,...Array(50)].map((x, i) =>
+            <option key={i}>{i}</option>
+          )}
+        </select>
+      </span>
     )
   }
 }
