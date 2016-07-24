@@ -79,7 +79,6 @@ function urlFor(path, extraParams) {
   let params = { ...DEFAULT_PARAMS, ...extraParams }
   let paramString = paramsToString(params)
   let url = `${ROOT_URL}${path}?${paramString}`
-  console.log('url', url)
   return url
 }
 

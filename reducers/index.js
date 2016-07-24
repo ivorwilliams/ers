@@ -5,7 +5,7 @@ import { SET_NAME_FILTER, SET_NOTABLE_ONLY } from '../actions/controls.js'
 import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
 import { CLEAR_OBSERVATIONS, RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
 
-function settings(state = {}, action) {
+function settings(state = { byRegion: false }, action) {
   switch (action.type) {
     case SET_LOCATION:
       return { ...state, lat: action.lat, lng: action.lng, byRegion: false }

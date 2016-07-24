@@ -55,6 +55,7 @@ export function setSettingsFromScriptTag() {
   const asBoolean = name => asString(name) == 'true'
   const isDefined = name => asString(name) !== null
 
+  // TODO: this is hard to follow.  Can it be simplified?
   return (dispatch, getState) => {
     if (isDefined('lat') && isDefined('lng')) {
       dispatch(setLocation(asFloat('lat'), asFloat('lng')))
@@ -71,6 +72,19 @@ export function setSettingsFromScriptTag() {
 
     dispatch(setNotableOnly(asBoolean('notable-only')))
 
+    if (isDefined('near-me') && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        dispatch(getCurrentLocation(pos))
+      })
+    } else {
+      dispatch(fetchLocations(getState().settings))
+    }
+  }
+}
+
+function getCurrentLocation(pos) {
+  return (dispatch, getState) => {
+    dispatch(setLocation(pos.coords.latitude, pos.coords.longitude))
     dispatch(fetchLocations(getState().settings))
   }
 }
