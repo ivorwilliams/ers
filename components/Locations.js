@@ -1,11 +1,14 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps'
+import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 import uniqBy from 'lodash/fp/uniqBy'
+import { selectLocation } from '../actions/selections.js'
 
 class Locations extends React.Component {
 
   static propTypes = {
+    onClick: React.PropTypes.func.isRequired,
+    selectedLocID: React.PropTypes.string,
     markers: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         key: React.PropTypes.string.isRequired,
@@ -38,13 +41,27 @@ class Locations extends React.Component {
               return (
                 <Marker
                   {...marker}
-                  onRightclick={() => this.props.onMarkerRightclick(index)} />
+                  onClick={ () => this.props.onClick(marker) } >
+                { console.log(marker.key, this.props.selectedLocID) }
+                { marker.key == this.props.selectedLocID ? this.renderInfoWindow(this.props.observations) : null }
+                </Marker>
               );
             })}
             </GoogleMap>
           }
         />
       </section>
+    )
+  }
+
+  renderInfoWindow(observations) {
+    return (
+      <InfoWindow
+      >
+        <div>
+          { observations.map(x => `${x.comName} - ${x.howMany}`).join(', ') }
+        </div>
+      </InfoWindow>
     )
   }
 
@@ -69,8 +86,13 @@ const mapStateToProps = (state) => {
     .observations
     .filter(x => state.filters.re.test(x.comName))
     .filter(x => x.notable || !state.filters.notableOnly)
+  let observationsForSelectedLocation = state
+    .observations
+    .filter(x => x.locID === state.selections.locID)
   return {
-    markers: uniqBy('key')(filteredObservations.map(observationToLocation))
+    markers: uniqBy('key')(filteredObservations.map(observationToLocation)),
+    selectedLocID: state.selections.locID,
+    observations: observationsForSelectedLocation
   }
 }
 
@@ -87,6 +109,9 @@ const observationToLocation = (observation) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onClick: (m) => {
+      dispatch(selectLocation(m.key))
+    }
   }
 }
 
