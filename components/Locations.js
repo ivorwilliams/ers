@@ -37,13 +37,12 @@ class Locations extends React.Component {
             <GoogleMap
               ref={ (map) => this.zoomMapToMarkers(map) }
             >
-            {this.props.markers.map((marker, index) => {
+            {this.props.markers.map(marker => {
               return (
                 <Marker
                   {...marker}
                   onClick={ () => this.props.onClick(marker) } >
-                { console.log(marker.key, this.props.selectedLocID) }
-                { marker.key == this.props.selectedLocID ? this.renderInfoWindow(this.props.observations) : null }
+                  { marker.key == this.props.selectedLocID ? this.renderInfoWindow(this.props.observations) : null }
                 </Marker>
               );
             })}

@@ -44,14 +44,18 @@ function filters(state = { re: new RegExp(''), notableOnly: true }, action) {
 }
 
 /*
- * Convert the filter text into a regular expression
+ * Convert the filter text into a regular expression.  Break
+ * the input into words, then treat each word as a stem.
+ * Words are delimited by either a space or dash.
  *
- * 1. Split filter text into word part, using space or dash
- * 2. Join the words with "anything"
+ * 1. Split filter text into word stems, by word delimiter
+ * 2. Join the words with "anything up to a word delimiter"
+ * 3. The start of the expression must match on either the
+ *    start of the line, or a word break
  */
 function textToRegExp(text) {
-  let reText = text.split(/[ -]/).join('.*')
-  return new RegExp(reText, 'i')
+  let reText = text.split(/[ -]/).join('.*[ -]')
+  return new RegExp('(^|[ -])' + reText, 'i')
 }
 
 function observations(state = [], action) {
