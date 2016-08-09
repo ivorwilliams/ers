@@ -1,17 +1,16 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { GoogleMapLoader, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
+import { GoogleMapLoader, GoogleMap } from 'react-google-maps'
 import uniqBy from 'lodash/fp/uniqBy'
-import { selectLocation } from '../actions/selections.js'
+import Location from './Location.js'
 
 class Locations extends React.Component {
 
   static propTypes = {
-    onClick: React.PropTypes.func.isRequired,
     selectedLocID: React.PropTypes.string,
     markers: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        key: React.PropTypes.string.isRequired,
+        locID: React.PropTypes.string.isRequired,
         title: React.PropTypes.string.isRequired,
         position: React.PropTypes.shape({
           lat: React.PropTypes.number.isRequired,
@@ -36,31 +35,14 @@ class Locations extends React.Component {
           googleMapElement={
             <GoogleMap
               ref={ (map) => this.zoomMapToMarkers(map) }
-            >
-            {this.props.markers.map(marker => {
-              return (
-                <Marker
-                  {...marker}
-                  onClick={ () => this.props.onClick(marker) } >
-                  { marker.key == this.props.selectedLocID ? this.renderInfoWindow(this.props.observations) : null }
-                </Marker>
-              );
-            })}
+              >
+              {this.props.markers.map(marker =>
+                <Location key={ marker.locID } { ...marker } />
+              )}
             </GoogleMap>
           }
         />
       </section>
-    )
-  }
-
-  renderInfoWindow(observations) {
-    return (
-      <InfoWindow
-      >
-        <div>
-          { observations.map(x => `${x.comName} - ${x.howMany}`).join(', ') }
-        </div>
-      </InfoWindow>
     )
   }
 
@@ -85,19 +67,14 @@ const mapStateToProps = (state) => {
     .observations
     .filter(x => state.filters.re.test(x.comName))
     .filter(x => x.notable || !state.filters.notableOnly)
-  let observationsForSelectedLocation = state
-    .observations
-    .filter(x => x.locID === state.selections.locID)
   return {
-    markers: uniqBy('key')(filteredObservations.map(observationToLocation)),
-    selectedLocID: state.selections.locID,
-    observations: observationsForSelectedLocation
+    markers: uniqBy('locID')(filteredObservations.map(observationToLocation))
   }
 }
 
 const observationToLocation = (observation) => {
   return {
-    key: observation.locID,
+    locID: observation.locID,
     title: observation.locName,
     position: {
       lat: observation.lat,
@@ -108,9 +85,6 @@ const observationToLocation = (observation) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClick: (m) => {
-      dispatch(selectLocation(m.key))
-    }
   }
 }
 
