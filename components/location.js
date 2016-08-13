@@ -30,7 +30,7 @@ class Location extends React.Component {
   renderInfoWindow(observations) {
     return (
       <InfoWindow
-      >
+        >
         <div>
           { observations.map(x => `${x.comName} - ${x.howMany}`).join(', ') }
         </div>

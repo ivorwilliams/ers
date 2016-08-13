@@ -39,7 +39,7 @@ class Controls extends React.Component {
         <select
           value={this.props.back}
           onChange={this.props.onBackChange}
-        >
+          >
           {[,...Array(30)].map((x, i) =>
             <option key={i}>{i}</option>
           )}
@@ -55,7 +55,7 @@ class Controls extends React.Component {
         <select
           value={this.props.dist}
           onChange={this.props.onDistChange}
-        >
+          >
           {[,...Array(50)].map((x, i) =>
             <option key={i}>{i}</option>
           )}
