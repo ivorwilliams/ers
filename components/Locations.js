@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps'
+import { GoogleMapLoader, GoogleMap } from 'react-google-maps'
 import uniqBy from 'lodash/fp/uniqBy'
+import Location from './Location.js'
 
 class Locations extends React.Component {
 
   static propTypes = {
+    selectedLocID: React.PropTypes.string,
     markers: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        key: React.PropTypes.string.isRequired,
+        locID: React.PropTypes.string.isRequired,
         title: React.PropTypes.string.isRequired,
         position: React.PropTypes.shape({
           lat: React.PropTypes.number.isRequired,
@@ -33,14 +35,10 @@ class Locations extends React.Component {
           googleMapElement={
             <GoogleMap
               ref={ (map) => this.zoomMapToMarkers(map) }
-            >
-            {this.props.markers.map((marker, index) => {
-              return (
-                <Marker
-                  {...marker}
-                  onRightclick={() => this.props.onMarkerRightclick(index)} />
-              );
-            })}
+              >
+              {this.props.markers.map(marker =>
+                <Location key={ marker.locID } { ...marker } />
+              )}
             </GoogleMap>
           }
         />
@@ -70,13 +68,13 @@ const mapStateToProps = (state) => {
     .filter(x => state.filters.re.test(x.comName))
     .filter(x => x.notable || !state.filters.notableOnly)
   return {
-    markers: uniqBy('key')(filteredObservations.map(observationToLocation))
+    markers: uniqBy('locID')(filteredObservations.map(observationToLocation))
   }
 }
 
 const observationToLocation = (observation) => {
   return {
-    key: observation.locID,
+    locID: observation.locID,
     title: observation.locName,
     position: {
       lat: observation.lat,

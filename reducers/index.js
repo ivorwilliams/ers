@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { SET_LOCATION, SET_REGION, SET_DISTANCE, SET_BACK } from '../actions/settings.js'
+import { SELECT_LOCATION, SELECT_SPECIES } from '../actions/selections.js'
 import { SET_NAME_FILTER, SET_NOTABLE_ONLY } from '../actions/controls.js'
 import { FETCH_STARTED, FETCH_SUCCEEDED, FETCH_FAILED } from '../actions/fetch.js'
 import { CLEAR_OBSERVATIONS, RECEIVE_OBSERVATIONS } from '../actions/ebird.js'
@@ -22,6 +23,10 @@ function settings(state = { byRegion: false }, action) {
 
 function selections(state = {}, action) {
   switch (action.type) {
+    case SELECT_LOCATION:
+      return { ...state, locID: action.locID }
+    case SELECT_SPECIES:
+      return { ...state, sciName: action.sciName }
     default:
       return state
   }
