@@ -35,7 +35,6 @@ class Locations extends React.Component {
           googleMapElement={
             <GoogleMap
               ref={ (map) => this.zoomMapToMarkers(map) }
-              onClick={ () => this.props.onClick() }
               >
               {this.props.markers.map(marker =>
                 <Location key={ marker.locID } { ...marker } />
@@ -111,9 +110,6 @@ const observationToLocation = (observation) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClick: () => {
-      dispatch(deselectLocation())
-    }
   }
 }
 
