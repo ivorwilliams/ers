@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Marker, InfoWindow } from 'react-google-maps'
 import { connect } from 'react-redux'
 import { selectLocation } from '../actions/selections.js'
+import Checklist from './checklist.js'
 
 class Location extends React.Component {
 
@@ -16,24 +17,25 @@ class Location extends React.Component {
     onClick: React.PropTypes.func.isRequired
   }
 
+  static contextTypes = {
+    store: React.PropTypes.object
+  }
+
   render() {
     return (
       <Marker
         { ...this.props }
         onClick={ () => this.props.onClick(this) }
         >
-        { this.props.selected ? this.renderInfoWindow(this.props.observations) : null }
+        { this.props.selected ? this.renderInfoWindow() : null }
       </Marker>
     )
   }
 
-  renderInfoWindow(observations) {
+  renderInfoWindow() {
     return (
-      <InfoWindow
-        >
-        <div>
-          { observations.map(x => `${x.comName} - ${x.howMany}`).join(', ') }
-        </div>
+      <InfoWindow>
+        <Checklist store={this.context.store} />
       </InfoWindow>
     )
   }
