@@ -43,15 +43,8 @@ class Location extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-  let filteredObservations = state
-    .observations
-    .filter(x => state.filters.re.test(x.comName))
-    .filter(x => x.notable || !state.filters.notableOnly)
-  let observations = filteredObservations
-    .filter(x => x.locID === props.locID)
   return {
-    selected: props.locID == state.selections.locID,
-    observations: observations
+    selected: props.locID == state.selections.locID
   }
 }
 
