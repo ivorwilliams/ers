@@ -21,10 +21,6 @@ class Checklist extends React.Component {
     )
   }
 
-  // <div>
-  //   { observations.map(x => `${x.comName} - ${x.howMany}`).join(', ') }
-  // </div>
-
 }
 
 const mapStateToProps = (state, props) => {
