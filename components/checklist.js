@@ -14,13 +14,26 @@ class Checklist extends React.Component {
     return (
       <div>
         <h4>{this.props.locName} ({this.props.locID})</h4>
-        <ul>
-          {this.props.observations.map(obs =>
-            <li key={ `${obs.obsID}/${obs.comName}` }>
-              {obs.comName}: {obs.howMany} ({this.ebirdLink(obs.subID)})
-            </li>
-          )}
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>Species</th>
+              <th>Count</th>
+              <th>When</th>
+              <th>Checklist</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.observations.map(obs =>
+              <tr key={ `${obs.subID}/${obs.comName}` }>
+                <td>{obs.comName}</td>
+                <td>{obs.howMany}</td>
+                <td>{obs.obsDt}</td>
+                <td>{this.ebirdLink(obs.subID)}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     )
   }
