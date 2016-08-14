@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { GoogleMapLoader, GoogleMap } from 'react-google-maps'
 import uniqBy from 'lodash/fp/uniqBy'
+import { deselectLocation } from '../actions/selections.js'
 import Location from './Location.js'
 
 class Locations extends React.Component {
@@ -34,6 +35,7 @@ class Locations extends React.Component {
           googleMapElement={
             <GoogleMap
               ref={ (map) => this.zoomMapToMarkers(map) }
+              onClick={ () => this.props.onClick() }
               >
               {this.props.markers.map(marker =>
                 <Location key={ marker.locID } { ...marker } />
@@ -109,6 +111,9 @@ const observationToLocation = (observation) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onClick: () => {
+      dispatch(deselectLocation())
+    }
   }
 }
 
