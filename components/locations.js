@@ -22,7 +22,6 @@ class Locations extends React.Component {
 
   render() {
     return (
-      // TODO: infowindow showing bird info
       <section style={{height: "100%"}} className="locations">
         <GoogleMapLoader
           containerElement={
@@ -46,11 +45,9 @@ class Locations extends React.Component {
     )
   }
 
-  // TODO: Ugh.  This is called as the user types and filters the selection.
-  // TODO: Perhaps listen for fetches to finish, zoom once, then no more
   zoomMapToMarkers(map) {
-    if (map) {
-      // console.log(`zooming map to ${this.props.markers.length} markers`)
+    if (map && !this.props.fetching) {
+      console.log(`zooming map to ${this.props.markers.length} markers`)
       let mapBounds = this.props.markers.reduce(
         // TODO: I should be able to simplify the extend() param
         (bounds, m) => bounds.extend(new google.maps.LatLng(m.position.lat, m.position.lng)),
@@ -68,7 +65,8 @@ const mapStateToProps = (state) => {
     .filter(x => state.filters.re.test(x.comName))
     .filter(x => x.notable || !state.filters.notableOnly)
   return {
-    markers: uniqBy('locID')(filteredObservations.map(observationToLocation))
+    markers: uniqBy('locID')(filteredObservations.map(observationToLocation)),
+    fetching: state.fetching != 0
   }
 }
 
