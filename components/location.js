@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Marker, InfoWindow } from 'react-google-maps'
 import { connect } from 'react-redux'
-import { selectLocation } from '../actions/selections.js'
+import { selectLocation, deselectLocation } from '../actions/selections.js'
 import Checklist from './checklist.js'
 
 class Location extends React.Component {
@@ -28,7 +28,9 @@ class Location extends React.Component {
 
   renderInfoWindow() {
     return (
-      <InfoWindow>
+      <InfoWindow
+        onCloseclick={ () => this.props.onCloseClick() }
+        >
         <Checklist {...this.props} store={this.context.store} />
       </InfoWindow>
     )
@@ -38,7 +40,7 @@ class Location extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    selected: props.locID == state.selections.locID
+    selected: props.locID === state.selections.locID
   }
 }
 
@@ -46,6 +48,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onClick: (m) => {
       dispatch(selectLocation(m.props.locID))
+    },
+    onCloseClick: () => {
+      dispatch(deselectLocation())
     }
   }
 }

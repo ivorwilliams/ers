@@ -14,3 +14,7 @@ export function selectLocation(locID) {
     locID: locID
   }
 }
+
+export function deselectLocation() {
+  return selectLocation(null)
+}
