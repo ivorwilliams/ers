@@ -11,7 +11,7 @@ class Locations extends React.Component {
     markers: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         locID: React.PropTypes.string.isRequired,
-        title: React.PropTypes.string.isRequired,
+        locName: React.PropTypes.string.isRequired,
         position: React.PropTypes.shape({
           lat: React.PropTypes.number.isRequired,
           lng: React.PropTypes.number.isRequired
@@ -75,7 +75,7 @@ const mapStateToProps = (state) => {
 const observationToLocation = (observation) => {
   return {
     locID: observation.locID,
-    title: observation.locName,
+    locName: observation.locName,
     position: {
       lat: observation.lat,
       lng: observation.lng

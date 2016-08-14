@@ -8,12 +8,6 @@ class Location extends React.Component {
 
   static propTypes = {
     locID: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired,
-    position: React.PropTypes.shape({
-      lat: React.PropTypes.number.isRequired,
-      lng: React.PropTypes.number.isRequired
-    }).isRequired,
-    selectedLocID: React.PropTypes.string,
     onClick: React.PropTypes.func.isRequired
   }
 
@@ -35,7 +29,7 @@ class Location extends React.Component {
   renderInfoWindow() {
     return (
       <InfoWindow>
-        <Checklist store={this.context.store} />
+        <Checklist {...this.props} store={this.context.store} />
       </InfoWindow>
     )
   }
