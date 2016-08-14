@@ -1,6 +1,7 @@
 var path = require('path')
 
 module.exports = {
+  devtool: 'eval-source-map',
   entry: ['whatwg-fetch', './index.js'],
   output: {
     filename: 'bundle.js'
