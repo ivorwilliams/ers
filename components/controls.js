@@ -21,7 +21,7 @@ class Controls extends React.Component {
     return (
       <div className="controls">
         <input
-          type="text"
+          type="search"
           placeholder="Filter names..."
           onChange={this.props.onNameFilterChange}
         />
