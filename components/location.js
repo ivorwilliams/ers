@@ -20,6 +20,7 @@ class Location extends React.Component {
       <Marker
         { ...this.props }
         onClick={ () => this.props.onClick(this) }
+        zIndex={ this.props.selected ? 2 : 1 }
         >
         { this.props.selected ? this.renderInfoWindow() : null }
       </Marker>
