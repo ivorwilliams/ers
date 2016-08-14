@@ -50,7 +50,7 @@ class Locations extends React.Component {
   // TODO: Perhaps listen for fetches to finish, zoom once, then no more
   zoomMapToMarkers(map) {
     if (map) {
-      console.log(`zooming map to ${this.props.markers.length} markers`)
+      // console.log(`zooming map to ${this.props.markers.length} markers`)
       let mapBounds = this.props.markers.reduce(
         // TODO: I should be able to simplify the extend() param
         (bounds, m) => bounds.extend(new google.maps.LatLng(m.position.lat, m.position.lng)),
