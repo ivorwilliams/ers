@@ -19,12 +19,14 @@ class Controls extends React.Component {
 
   render() {
     return (
-      <div className="controls">
+      <form className="controls">
         <input
           type="search"
           placeholder="Filter names..."
           onChange={this.props.onNameFilterChange}
         />
+        <br/>
+
         <input
           type="checkbox"
           checked={this.props.notableOnly}
@@ -32,6 +34,7 @@ class Controls extends React.Component {
         />
         {' '}
         Notable only
+        <br/>
 
         { this.props.byRegion ? null : this.renderDistChanged() }
 
@@ -44,7 +47,7 @@ class Controls extends React.Component {
             <option key={i}>{i}</option>
           )}
         </select>
-      </div>
+      </form>
     )
   }
 
@@ -60,6 +63,7 @@ class Controls extends React.Component {
             <option key={i}>{i}</option>
           )}
         </select>
+        <br/>
       </span>
     )
   }
