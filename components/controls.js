@@ -54,7 +54,7 @@ class Controls extends React.Component {
   renderDistChanged() {
     return (
       <span>
-        Distance
+        Distance:
         <select
           value={this.props.dist}
           onChange={this.props.onDistChange}
