@@ -50,6 +50,8 @@ ul {
 }
 
 .controls {
+  border: 1px solid #ccc;
+  background-color: #eee;
   flex: 1 0 content;
 }
 
