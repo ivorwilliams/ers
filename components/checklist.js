@@ -25,7 +25,7 @@ class Checklist extends React.Component {
           </thead>
           <tbody>
             {this.props.observations.map(obs =>
-              <tr key={ `${obs.subID}/${obs.comName}` }>
+              <tr key={ `${obs.obsID}/${obs.comName}` }>
                 <td>{obs.comName}</td>
                 <td>{obs.howMany}</td>
                 <td>{obs.obsDt}</td>

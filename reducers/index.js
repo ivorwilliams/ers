@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux'
+import groupBy from 'lodash/fp/groupBy'
+import values from 'lodash/fp/values'
 
 import { SET_LOCATION, SET_REGION, SET_DISTANCE, SET_BACK } from '../actions/settings.js'
 import { SELECT_LOCATION, SELECT_SPECIES } from '../actions/selections.js'
@@ -63,10 +65,20 @@ function observations(state = [], action) {
     case CLEAR_OBSERVATIONS:
       return state = []
     case RECEIVE_OBSERVATIONS:
-      return state.concat(action.observations)
+      return combineObservations(state, action.observations)
     default:
       return state
   }
+}
+
+// TODO: fix this method: it only works because notables are requested
+// (and hopefully returned) first
+function combineObservations(observations, newObservations) {
+  let combined = observations.concat(newObservations)
+  let grouped = groupBy(x => x.obsID)(combined)
+  // TODO: need to reduce here
+  let squashed = values(grouped).map(x => x[0])
+  return squashed
 }
 
 function fetching(state = 0, action) {
